@@ -1,7 +1,7 @@
 angular.module('regexPlaygroundApp', ['ui.bootstrap.modal'])
 .controller('RegexPlaygroundCtrl', function($scope, $modal) {
 	$scope.regexSyntaxError = false;
-	$scope.regex = '[a-z]\w+';
+	$scope.regex = '[A-Za-z]+';
 	$scope.flag_i = false;
 	$scope.flag_g = true;
 	$scope.flag_m = false;
@@ -140,7 +140,7 @@ angular.module('regexPlaygroundApp', ['ui.bootstrap.modal'])
 	}
 	return {
 		restrict: 'E',
-		template: empty_template(),
+		template: default_template(),
 		link: link,
 		scope: {
 			regex: '=rpExp',
