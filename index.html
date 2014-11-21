@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="regexPlaygroundApp"> <!--<![endif]-->
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>RegEx Playground</title>
+        <meta name="keywords" content="regex, regular, expression, tester, playground">
+        <meta name="description" content="A simple JavaScript regular expression tester">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="author" href="//plus.google.com/u/0/110860847318113155009" />
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="icon" type="image/png" href="img/icons/favicon.png">
+        <link rel="apple-touch-icon" href="img/icons/touch-icon-iphone.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="img/icons/touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="img/icons/touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="img/icons/touch-icon-ipad-retina.png">
+
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+        <link rel="stylesheet" href="css/vendor/font-awesome.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="js/vendor/rangy-core.min.js"></script>
+        <script src="js/vendor/rangy-textrange.min.js"></script>
+        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/vendor/angular-sanitize.min.js"></script> 
+        <script src="js/vendor/ui-transition.min.js"></script>
+        <script src="js/vendor/ui-modal.min.js"></script>
+
+    </head>
+    <body ng-controller="RegexPlaygroundCtrl">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <script type="text/ng-template" id="toast.html">
+            <div class="modal-body" ng-cloak>
+                <p class="text-center"><strong>{{title}}</strong></p>
+                <p class="text-center">{{message}}</p>
+            </div>
+        </script>
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/icons/icon_32x32.png"></img> RegEx Playground
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="wrap container">
+            <div class="row card">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Expression</label>
+                    <div class="action-panel pull-right" ng-cloak>
+                        <div class="action" ng-click="regex = ''">
+                            <label>
+                                <i class="fa fa-trash"></i> Clear
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-cloak>
+                    <input class="input" ng-model="regex" ng-class="{'error': regexSyntaxError}">
+                </div>
+                <div class="text-right col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-cloak>
+                    <div class="flags">
+                        <div ng-class="{'checkbox': true, 'checked': flag_i}" ng-click="flag_i = !flag_i" ng-init="flag_i = false">
+                            <label>
+                                Ignore case
+                            </label>
+                        </div>
+                        <div ng-class="{'checkbox': true, 'checked': flag_g}" ng-click="flag_g = !flag_g" ng-init="flag_g = true">
+                            <label>
+                                Global
+                            </label>
+                        </div>
+                        <div ng-class="{'checkbox': true, 'checked': flag_m}" ng-click="flag_m = !flag_m" ng-init="flag_m = false">
+                            <label>
+                                Multiline
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row card">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Text</label>
+                    <div class="action-panel pull-right" ng-cloak>
+                        <label class="match-count" ng-if="match_count > 0">
+                            <span class="badge">{{match_count}}</span>
+                            <span ng-if="match_count == 1"> match</span>
+                            <span ng-if="match_count != 1"> matches</span>
+                        </label>
+                        <div class="action" ng-click="clear_text = true" ng-init = "clear_text = false">
+                            <label>
+                                <i class="fa fa-trash"></i> Clear
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-cloak>
+                    <div class="textarea-wrap">
+                        <rp-text rp-exp="regex" rp-flag-i="flag_i" rp-flag-g="flag_g" rp-flag-m="flag_m" rp-match-count="match_count" rp-clear-text="clear_text"></rp-text>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action circle text-center pull-right" rp-tooltip data-toggle="tooltip" data-placement="left" title="Save" ng-click='toast("Coming Soon", "The Save feature is under active development. Stay hooked!", 4000)' ng-cloak>
+                <i class="fa fa-bookmark"></i>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-section col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                        <p class="text-center">
+                            <strong>Inspiration</strong><br />
+                            <a href="//www.regexr.com/">RegExr</a> by <a href="//gskinner.com/">gskinner</a><br />
+                            <a href="//www.google.com/design/spec/material-design/introduction.html">Material Design by Google</a><br />
+                            <br />
+                            <strong>Icons by</strong><br />
+                            <a href="//fortawesome.github.io/Font-Awesome/">Font Awesome</a><br />
+                        </p>
+                    </div>
+                    <div class="footer-section col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                        <p class="text-center">
+                            <strong>Developed with</strong><br />
+                            <a href="//angularjs.org/">Angular.js</a><br />
+                            <a href="//getbootstrap.com/">Bootstrap</a><br />
+                            <a href="//github.com/timdown/rangy">Rangy</a> by <a href="//www.timdown.co.uk/">Tim Down</a><br />
+                        </p>
+                    </div>
+                    <div class="footer-section col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                        <p class="text-center">
+                            <strong>About</strong><br />
+                            A simple  JavaScript regular expression tester<br />
+                            v1.0.0 | <a href="//github.com/c-das/regexp">Source</a> | <a href="//github.com/c-das/regexp/issues">Issues</a><br />
+                            <br />
+                            <strong>Developed by</strong><br />
+                            Chitharanjan Das
+                            | <a class="icon" href="//github.com/c-das"><i class="fa fa-github"></i></a>
+                            | <a class="icon" href="//www.linkedin.com/profile/view?id=165211940"><i class="fa fa-linkedin"></i></a><br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-56969627-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+    </body>
+</html>

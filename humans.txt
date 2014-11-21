@@ -1,0 +1,41 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+
+                            
+/* TEAM */
+
+                            
+Developer: Chitharanjan Das
+
+                            
+Site: https://github.com/c-das
+
+                            
+Twitter: @chitharanjandas
+
+                            
+Location: Gurgaon, India
+						
+
+							
+/* THANKS */
+
+							
+Tim Down (for the Rangy library): https://github.com/timdown
+                        
+
+                            
+/* SITE */
+
+                            
+Last update: 2014/11/21
+
+                            
+Standards: HTML5, CSS3
+
+                            
+Components: Modernizr, jQuery, Angular.js, Bootstrap
+
+                            
+Software: Sublime Text 2.0
