@@ -39,7 +39,7 @@ angular.module('regexPlaygroundApp', ['ui.bootstrap.modal'])
 })
 .directive('rpText', function($window, $document) {
 	var el_pre = '<div class="textarea" contenteditable spellcheck="false">', el_suf = '<br /></div>';
-	var el_default = '<p>Welcome to RegEx Playground!</p><br /><p>This is a simple JavaScript regular expression tester. Start typing an expression above and see matches as you type. Since this is an early test release, there might be a few annoying bugs (https://github.com/c-das/regexp/issues), but I hope you enjoy using this tool anyway.</p><p>--Chitharanjan Das</p>';
+	var el_default = '<p>Welcome to RegEx Playground!</p><br /><p>This is a simple JavaScript regular expression tester. Start typing an expression above and see matches as you type. Since this is an early test release, there might be a few annoying bugs (https://github.com/c-das/regexp/issues), but I hope you enjoy using this tool anyway.</p><br /><br /><p>--Chitharanjan Das</p>';
 	var match_pre = '<span class="match">', match_suf = '</span>';
 	function empty_template() {
 		return el_pre + el_suf;
