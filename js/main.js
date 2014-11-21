@@ -1,4 +1,4 @@
-angular.module('regexPlaygroundApp', ['ui.bootstrap.modal'])
+angular.module('regexPlaygroundApp', ['ui.bootstrap.modal', 'ngTouch'])
 .controller('RegexPlaygroundCtrl', function($scope, $modal, $window, $document, $interval) {
 	$scope.regexSyntaxError = false;
 	$scope.regex = '[A-Za-z]+';
