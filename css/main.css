@@ -103,7 +103,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'Open Sans', sans-serif;
-    margin-bottom: 150px;
 }
 
 html {
@@ -113,10 +112,8 @@ html {
 
 .footer {
   position: absolute;
-  bottom: 0;
   width: 100%;
-  height: 150px;
-  max-height: 1000px;
+  bottom: 0px;
   background-color: #80D8FF;
   margin-top: 1em;
   -webkit-box-shadow: inset rgba(0, 0, 0, 0.258824) 0px 2px 5px 0px;
@@ -124,14 +121,15 @@ html {
   box-shadow: inset rgba(0, 0, 0, 0.258824) 0px 2px 5px 0px;
 }
 
-.footer>.container {
-    height: 100%;
+.test {
+    position: relative;
+    bottom: 0px;
+    background-color: #80D8FF;
 }
 
 .footer>.container>.row {
     display: table;
     table-layout: fixed;
-    height: 100%;
     width: 100%;
 }
 
@@ -182,7 +180,7 @@ rp-text {
 
 .input {
     font: medium -moz-fixed;
-    font-family: 'Inconsolata';
+    font-family: 'Inconsolata', 'Courier New', Courier, monospace;
     width: 100%;
     padding: 2px;
     outline: none;
