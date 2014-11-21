@@ -1,11 +1,12 @@
 angular.module('regexPlaygroundApp', ['ui.bootstrap.modal'])
-.controller('RegexPlaygroundCtrl', function($scope, $modal) {
+.controller('RegexPlaygroundCtrl', function($scope, $modal, $window, $document, $interval) {
 	$scope.regexSyntaxError = false;
 	$scope.regex = '[A-Za-z]+';
 	$scope.flag_i = false;
 	$scope.flag_g = true;
 	$scope.flag_m = false;
 	$scope.match_count = 0;
+	$scope.footer_height = 150;
 	$scope.$watch('regex', function(regex_str) {
 		try {
 			var re = new RegExp(regex_str);
@@ -28,6 +29,37 @@ angular.module('regexPlaygroundApp', ['ui.bootstrap.modal'])
     		}
     	});
 	};
+
+	var footer;
+	var footer_container;
+	var body;
+	var footer_container_height;
+
+	var window_resize = false;
+
+	angular.element($window).bind('load', function() {
+		footer = $('.footer');
+		footer_container = $('.footer>.container');
+		body = $('body');
+		footer_container_height = footer_container.height();
+		footer.height(footer_container_height);
+		footer.css('bottom', 0);
+		body.css('margin-bottom', footer_container_height + 20);
+	})
+
+	angular.element($window).bind('resize', function() {
+		window_resize = true;
+	});
+
+	$interval(function() {
+		if(window_resize) {
+			window_resize = false;
+			footer_container_height = footer_container.height();
+			footer.height(footer_container_height);
+			footer.css('bottom', 0);
+			body.css('margin-bottom', footer_container_height + 20);
+		}
+	}, 250);
 })
 .controller('ToastInstanceCtrl', function ($scope, $modalInstance, $timeout, title, message, timeout) {
 	$scope.title = title;
