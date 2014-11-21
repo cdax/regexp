@@ -45,7 +45,7 @@ angular.module('regexPlaygroundApp', ['ui.bootstrap.modal'])
 		return el_pre + el_suf;
 	}
 	function default_template() {
-		return el_pre + el_suf;
+		return el_pre + el_default + el_suf;
 	}
 	function link(scope, element, attrs) {
 		function clear_matches(element) {	
